@@ -48,5 +48,7 @@ jobs:
             -Dsonar.projectKey=ElGamal_encryption
             -Dsonar.organization=illialla
             -Dsonar.sources=.
-            -Dsonar.exclusions=external/**
-            -Dsonar.cfamily.gcov.reportsPath=.
+            -Dsonar.tests=.
+            -Dsonar.inclusions=main.py
+            -Dsonar.test.inclusions=tests/test.py
+            -Dsonar.python.coverage.reportPaths=./coverage.xml
