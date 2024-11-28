@@ -42,7 +42,7 @@ jobs:
       - name: SonarCloud
         uses: sonarsource/sonarcloud-github-action@v3.1.0
         env:
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN2 }}
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         with:
           args: >
             -Dsonar.projectKey=ElGamal_encryption
