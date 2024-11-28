@@ -1,3 +1,9 @@
+[![MyTests](https://github.com/Illialla/ElGamal_encryption/actions/workflows/test-action.yml/badge.svg)](https://github.com/Illialla/ElGamal_encryption/actions/workflows/test-action.yml/badge.svg)
+[![Coverage Status](https://coveralls.io/repos/github/Illialla/ElGamal_encryption/badge.svg?branch=main)](https://coveralls.io/github/Illialla/ElGamal_encryption?branch=main)
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=Illialla_ElGamal_encryption&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=Illialla_ElGamal_encryption)
+[![Bugs](https://sonarcloud.io/api/project_badges/measure?project=Illialla_ElGamal_encryption&metric=bugs)](https://sonarcloud.io/summary/new_code?id=Illialla_ElGamal_encryption)
+[![Code smells](https://sonarcloud.io/api/project_badges/measure?project=Illialla_ElGamal_encryption&metric=code_smells)](https://sonarcloud.io/dashboard?id=Illialla_ElGamal_encryption)
+
 ## План тестирования
 ### 1. Блочные тесты
 1. BlockTestMathUtils.TestGeneratePrimeNumberWithBitLength16:
