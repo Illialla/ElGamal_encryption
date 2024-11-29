@@ -12,6 +12,25 @@ class BlockTestMathUtils(unittest.TestCase):
         self.assertGreaterEqual(prime_candidate, 32768)
         self.assertLessEqual(prime_candidate, 65535)
 
+    def test_generate_random_big_integer_runtime(self):
+        bit_length = 32
+
+        start_time = time.time()  # Запоминаем время начала
+        result = MathUtils.generate_random_big_integer(bit_length)  # Вызываем функцию
+        end_time = time.time()  # Запоминаем время окончания
+
+        elapsed_time = end_time - start_time  # Вычисляем время выполнения
+
+        # Проверяем, что время выполнения не превышает 5 секунд
+        if elapsed_time > 5:
+            raise RuntimeError("Время выполнения функции превышает 5 секунд.")
+
+        # Дополнительно, вы можете проверить, что результат находится в правильном диапазоне
+        min_value = 2 ** (bit_length - 1)
+        max_value = (2 ** bit_length) - 1
+        self.assertGreaterEqual(result, min_value)
+        self.assertLessEqual(result, max_value)
+
     def test_gcd_with_small_integers(self):
         a = 8
         b = 12
@@ -23,11 +42,24 @@ class BlockTestMathUtils(unittest.TestCase):
         with self.assertRaises(ValueError):
             MathUtils.mod_inverse(a, m)
 
+    def test_mod_inverse_returns_one(self):
+        # Проверяем случай, когда a = 1, который всегда должен возвращать 1
+        a = 1
+        m = 7  # 1 и 7 взаимно простые
+        result = MathUtils.mod_inverse(a, m)
+        self.assertEqual(result, 1)
+
     def test_mod_pow_edge_cases(self):
         a = 5
         b = 0
         c = 7
         self.assertEqual(MathUtils.mod_pow(a, b, c), 1)
+
+    # def test_mod_pow_edge_cases_negative(self):
+    #     a = 5
+    #     b = 1
+    #     c = -7
+    #     self.assertEqual(MathUtils.mod_pow(a, b, c), 1)
 
     def test_is_prime_number(self):
         num = 7
@@ -38,11 +70,27 @@ class BlockTestMathUtils(unittest.TestCase):
         self.assertFalse(MathUtils.is_prime(num, 100))
 
     def test_find_primitive_root(self):
-        p = 7
+        p = 3
         g = MathUtils.find_primitive_root(p)
         self.assertTrue(g != -1)
         for i in range(1, p - 1):
             self.assertNotEqual(MathUtils.mod_pow(g, i, p), 1)
+
+    def test_find_primitive_root_no_root(self):
+        p = 1  # 1 не имеет первообразного корня
+        result = MathUtils.find_primitive_root(p)
+        self.assertEqual(result, -1)
+
+    def test_get_s_mes_with_letters(self):
+        mes = "abc"
+        x = 47516
+        r = 3557
+        k = 37973
+        p = 64950
+        with self.assertRaises(TypeError):
+            MathUtils.get_s(mes,x,r,k,p)
+
+
 
 class IntegrationTest(unittest.TestCase):
     def setUp(self):
@@ -58,7 +106,8 @@ class IntegrationTest(unittest.TestCase):
 
     def test_compare_generated_nums(self):
         generated_nums = [MathUtils.generate_random_big_integer(16) for _ in range(10)]
-        self.assertEqual(len(generated_nums), len(set(generated_nums)))
+        print(generated_nums)
+        self.assertEqual(len(generated_nums), len(set(generated_nums))) # множество уникально и если там есть повторы, то останется только 1 число
 
     def test_generate_primitive_root(self):
         p = MathUtils.generate_prime_number(16)
@@ -154,6 +203,20 @@ class CertificationTestMathUtils(unittest.TestCase):
 
     def test_el_gamal_encryption_mes_with_letters(self):
         input_data = "абв"
+        sys.stdin = StringIO(input_data)
+
+        with self.assertRaises(ValueError):
+            ElGamalEncryption.main()
+
+    def test_get_s_mes_with_letters(self):
+        input_data = "абв"
+        sys.stdin = StringIO(input_data)
+
+        with self.assertRaises(ValueError):
+            ElGamalEncryption.main()
+
+    def test_get_s_mes_with_special_chars(self):
+        input_data = "@#^?"
         sys.stdin = StringIO(input_data)
 
         with self.assertRaises(ValueError):

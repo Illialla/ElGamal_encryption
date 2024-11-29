@@ -5,37 +5,62 @@
  - Краткое описание: Тест проверяет, что сгенерированное число является простым и находится в пределах 16-битного диапазона
  - Входные данные: bitLength = 16
  - Ожидаемые выходные данные: Простое число primeCandidate, которое является 16-битным (значение от 32768 до 65535)
-2. BlockTestMathUtils.TestGCDWithSmallIntegers:
+2. BlockTestMathUtils.TestGeneratePrimeNumberWithBitLength32:
+ - Тип теста: Негативный
+ - Краткое описание: Тест проверяет, что время работы функции при bit_length=32 превышает 5 секунд
+ - Входные данные: bitLength = 32
+ - Ожидаемые выходные данные: RuntimeError
+3. BlockTestMathUtils.TestGCDWithSmallIntegers:
  - Тип теста: Позитивный
  - Краткое описание: Тест проверяет, что GCD для пары малых чисел вычисляется правильно.
  - Входные данные: a = 8, b = 12
  - Ожидаемые выходные данные: 4
-3. BlockTestMathUtils.TestModInverseWithNotRelativelyPrime
+4. BlockTestMathUtils.TestModInverseWithNotRelativelyPrime
  - Тип теста: Негативный
  - Краткое описание: Проверка на отсутствие обратного элемента, когда a и m имеют общий делитель
  - Входные данные: a = 2, m = 4
  - Ожидаемые выходные данные: ValueError (обратный элемент не существует)
-4. BlockTestMathUtils.TestModPowEdgeCases
- - Тип теста: Положительный
+5. BlockTestMathUtils.TestModInverseReturnsOne
+ - Тип теста: Негативный
+ - Краткое описание: Проверка на возврат крайнего значения равного 1
+ - Входные данные: a = 1, m = 7
+ - Ожидаемые выходные данные: 1
+6. BlockTestMathUtils.TestModInverseWithRelativelyPrime
+ - Тип теста: Позитивный
+ - Краткое описание: Проверка на отсутствие обратного элемента, когда a и m имеют общий делитель
+ - Входные данные: a = 2, m = 5
+ - Ожидаемые выходные данные: ValueError (обратный элемент не существует)
+7. BlockTestMathUtils.TestModPowEdgeCases
+ - Тип теста: Позитивный
  - Краткое описание: Проверка корректности работы при b = 0
  - Входные данные: a = 5, b = 0, c = 7
  - Ожидаемые выходные данные: 1 (поскольку любое число в степени 0 равно 1)
-5. BlockTestMathUtils.TestIsPrimeNumber:
+8. CertificationTestElGamalEncryption.TestGetSMesWithLetters:
+- Тип теста: Негативный тест
+- Краткое описание: Проверка обработки сообщения содержащего буквы
+- Входные данные: mes = "абв"
+- Ожидаемые выходные данные: TypeError
+
+9. BlockTestMathUtils.TestIsPrimeNumber:
 - Тип теста: Позитивный
 - Краткое описание: Проверяет, что функция правильно идентифицирует известные простые числа
 - Входные данные: num = 7
 - Ожидаемые выходные данные: True
-6. BlockTestMathUtils.TestIsNotPrimeNumber:
+10. BlockTestMathUtils.TestIsNotPrimeNumber:
 - Тип теста: Негативный
 - Краткое описание: Проверяет, что функция правильно идентифицирует известные составные числа
 - Входные данные: num = 10
 - Ожидаемые выходные данные: False
-7. BlockTestMathUtils.TestFindPrimitiveRoot:
+11. BlockTestMathUtils.TestFindPrimitiveRoot:
 - Тип теста: Позитивный
 - Краткое описание: Проверяет, что возвращенное значение является примитивным корнем, исполняя все необходимые проверки.
 - Входные данные: p = 7
 - Ожидаемые выходные данные: Все степени до 6 (0-6) не равны 1, по исключению 6 (7-1)
-
+12. BlockTestMathUtils.TestFindPrimitiveRoot:
+- Тип теста: Негативный
+- Краткое описание: Проверяет, что не был найден примитивный корень
+- Входные данные: p = 1
+- Ожидаемые выходные данные: -1
 [//]: # (8. TestMathUtils.TestElGamalEncryptionMain:)
 [//]: # (- Тип теста: Позитивный)
 [//]: # (- Краткое описание: Тест проверяет, что алгоритм Эль-Гамаля работает корректно и генерирует цифровую подпись.)
@@ -99,7 +124,12 @@
 - Краткое описание: Проверка обработки сообщения содержащего буквы
 - Входные данные: mes = "абв"
 - Ожидаемые выходные данные: ValueError
-5. CertificationTestElGamalEncryption.TestElGamalEncryptionNegativeMes:
+5. CertificationTestElGamalEncryption.TestElGamalEncryptionMesWithSpecialChars:
+- Тип теста: Негативный тест
+- Краткое описание: Проверка обработки сообщения содержащего специальные символы
+- Входные данные: mes = "@#^?"
+- Ожидаемые выходные данные: ValueError
+6. CertificationTestElGamalEncryption.TestElGamalEncryptionNegativeMes:
 - Тип теста: Позитивный тест
 - Краткое описание: Проверка обработки сообщения с отрицательным числом
 - Входные данные: mes = "-23456"
